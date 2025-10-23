@@ -9,10 +9,18 @@ dotenv.config();
 export const commands = [];
 
 export async function loadCommands() {
-  // 取得所有指令檔
-  const files = await fg('src/commands/**/index.js');
+  console.log('(🌀)開始載入指令...');
 
-  // 清空舊的
+  if (!process.env.TOKEN || !process.env.APPLICATION_ID) {
+    console.error('(❌)缺少 TOKEN 或 APPLICATION_ID，請檢查 .env');
+    return;
+  }
+
+  const files = await fg('src/commands/**/index.js');
+  if (files.length === 0) {
+    console.warn('(⚠️)未找到任何指令檔案');
+  }
+
   commands.length = 0;
 
   for (const file of files) {
@@ -23,33 +31,41 @@ export async function loadCommands() {
       if (mod.command) {
         if (typeof mod.command.toJSON === 'function') {
           commands.push({ data: mod.command, action: mod.action || null });
+          console.log(`(✅)已載入指令: ${mod.command.name}`);
         } else {
           commands.push(mod.command);
+          console.log(`(✅)已載入一般模組: ${file}`);
         }
       } else {
-        console.warn(`指令檔案 ${file} 沒有 export const command`);
+        console.warn(`(⚠️)指令檔案 ${file} 沒有 export const command`);
       }
     } catch (err) {
-      console.error(`載入指令檔 ${file} 發生錯誤:`, err);
+      console.error(`(❌)載入指令檔 ${file} 時發生錯誤:`, err);
     }
   }
 
-  // 轉換成 Discord JSON 格式
   const payload = commands
     .map(c => (c && c.data && typeof c.data.toJSON === 'function' ? c.data.toJSON() : null))
     .filter(Boolean);
 
-  // 註冊到 Discord
+  if (payload.length === 0) {
+    console.warn('(⚠️)沒有任何有效的 Slash 指令可註冊');
+    return;
+  }
+
   const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
   try {
+
     await rest.put(
       Routes.applicationCommands(process.env.APPLICATION_ID),
       { body: payload }
     );
-    console.log(`已重新載入 ${payload.length} 個指令`);
+
+    console.log(`(🚀)成功註冊 ${payload.length} 個指令到 Discord`);
   } catch (err) {
-    console.error('註冊指令到 Discord 失敗:', err);
+    console.error('(❌)註冊指令到 Discord 失敗:', err);
   }
 
+  console.log('(✅)指令載入完成\n');
   return commands;
 }

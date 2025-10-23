@@ -22,8 +22,8 @@ async function loadEvents() {
 }
 
 async function startBot() {
-  await loadCommands(); // 先載入指令
-  await loadEvents();   // 再載入事件
+  await loadCommands(); 
+  await loadEvents();   
 
   client.login(process.env.TOKEN);
 }
