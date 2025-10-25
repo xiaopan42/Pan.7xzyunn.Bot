@@ -2,10 +2,6 @@ import { EmbedBuilder } from 'discord.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-/**
- * 集中式日誌系統
- * 可以傳入 customColor 來覆蓋預設顏色。
- */
 export async function sendLog(client, type, title, description, originGuild, customColor) {
   if (!client || !client.guilds) {
     console.warn('⚠️ 無法發送日誌：client 尚未初始化');
@@ -24,12 +20,11 @@ export async function sendLog(client, type, title, description, originGuild, cus
   const logChannel = await mainGuild.channels.fetch(logChannelId).catch(() => null);
   if (!logChannel) return console.warn('⚠️ 找不到日誌頻道');
 
-  // 🎨 顏色設定（若有 customColor 則優先使用）
   const color = customColor || (
-    type === 'system' ? '#00BFFF' :   // 天藍
-    type === 'admin' ? '#FF4444' :    // 紅色
-    type === 'command' ? '#00FF7F' :  // 綠色
-    '#AAAAAA'                         // 預設灰
+    type === 'system' ? '#00BFFF' :   
+    type === 'admin' ? '#FF4444' :    
+    type === 'command' ? '#00FF7F' :  
+    '#AAAAAA'                         
   );
 
   const embed = new EmbedBuilder()
