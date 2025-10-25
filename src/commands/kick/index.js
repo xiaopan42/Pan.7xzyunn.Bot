@@ -1,4 +1,5 @@
 import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import { sendLog } from '../../store/logger.js';
 
 export const command = {
   data: new SlashCommandBuilder()
@@ -17,7 +18,7 @@ export const command = {
 
   async action(interaction) {
     if (!interaction.memberPermissions.has(PermissionFlagsBits.KickMembers)) {
-      return interaction.reply({ content: '❌ 你沒有權限使用這個指令', ephemeral: true });
+      return interaction.reply({ content: '你沒有權限使用這個指令', ephemeral: true });
     }
 
     const user = interaction.options.getUser('target');
@@ -26,10 +27,19 @@ export const command = {
     try {
       const member = await interaction.guild.members.fetch(user.id);
       await member.kick(reason);
-      await interaction.reply({ content: `已踢出成員.**${user.tag}** / 原因 ${reason}`, ephemeral: true });
+
+      await interaction.reply({ content: `已踢出成員.**${user.tag}** / 理由：${reason}` });
+
+      await sendLog(
+        interaction.client,
+        'admin',
+        '⚠️ 管理操作：踢出成員',
+        `執行者：${interaction.user.tag}\n目標：${user.tag}\n原因：${reason}`,
+        interaction.guild
+      );
     } catch (err) {
       console.error('踢出失敗:', err);
-      await interaction.reply({ content: '無法踢出該成員 可能權限不足或該成員不存在 ', ephemeral: true });
+      await interaction.reply({ content: '無法踢出該成員', ephemeral: true });
     }
   },
 };
