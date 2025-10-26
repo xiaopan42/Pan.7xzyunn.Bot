@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
-import { sendLog } from '../../store/logger.js';
+import { logAdmin } from '../../store/logger.js';
 
 export const command = {
   data: new SlashCommandBuilder()
@@ -28,18 +28,13 @@ export const command = {
       const member = await interaction.guild.members.fetch(user.id);
       await member.ban({ reason });
 
-      await interaction.reply({ content: `已封鎖成員. **${user.tag}** / 理由：${reason}` });
+      await interaction.reply({ content: `✅ 已封鎖成員 **${user.tag}** / 理由：${reason}` });
 
-      await sendLog(
-        interaction.client,
-        'admin',
-        '🚨 管理操作：封鎖使用者',
-        `執行者：${interaction.user.tag}\n目標：${user.tag}\n原因：${reason}`,
-        interaction.guild
-      );
+      // ✅ 使用封裝的 logger
+      await logAdmin(interaction, '封鎖使用者', `目標：${user.tag}\n原因：${reason}`);
     } catch (err) {
       console.error('封鎖失敗:', err);
-      await interaction.reply({ content: '無法封鎖該成員', ephemeral: true });
+      await interaction.reply({ content: '❌ 無法封鎖該成員', ephemeral: true });
     }
   },
 };

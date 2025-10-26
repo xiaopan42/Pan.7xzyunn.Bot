@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pan.7xzyunn.Bot 控制面板</title>
+  </head>
+  <body style="font-family: sans-serif; text-align: center; padding: 50px;">
+    <h1>🤖 Pan.7xzyunn.Bot</h1>
+    <% if (user) { %>
+      <p>已登入為：<%= user.username %>#<%= user.discriminator %></p>
+      <a href="/dashboard">進入控制台</a> |
+      <a href="/logout">登出</a>
+    <% } else { %>
+      <a href="/login">使用 Discord 登入</a>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= guild.name %> - 設定</title>
+  </head>
+  <body style="font-family: sans-serif; text-align: center; padding: 40px;">
+    <h1>⚙️ <%= guild.name %> 設定</h1>
+
+    <form action="/dashboard/<%= guild.id %>" method="POST">
+      <label for="logChannel">選擇日誌頻道：</label><br><br>
+      <select name="logChannel" id="logChannel">
+        <% channels.forEach(c => { %>
+          <option value="<%= c.id %>" <%= current.logChannel === c.id ? 'selected' : '' %>>
+            #<%= c.name %>
+          </option>
+        <% }) %>
+      </select><br><br>
+      <button type="submit">💾 儲存設定</button>
+    </form>
+
+    <p style="margin-top:30px;"><a href="/dashboard">⬅ 返回伺服器列表</a></p>
+  </body>
+</html>
