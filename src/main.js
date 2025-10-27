@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { Client, GatewayIntentBits, EmbedBuilder } from 'discord.js';
+import { Client, GatewayIntentBits } from 'discord.js';
 import { loadCommands } from './core/loader.js';
 import { pathToFileURL } from 'url';
 import fg from 'fast-glob';
@@ -30,8 +30,6 @@ async function startBot() {
   await loadCommands();
   await loadEvents();
   await client.login(process.env.TOKEN);
-
-  // ✅ 不再在這裡監聽 ready（避免重複）
 }
 
 startBot();
@@ -58,20 +56,21 @@ export async function verifyMainLog(client) {
   }
 }
 
-// 🔻 下線通知
+// 🔻 下線通知（統一使用新版 sendLog）
 async function handleShutdown(reason) {
   console.log(`🔻 收到關閉訊號 (${reason})`);
 
   if (client && client.isReady()) {
-    const embed = new EmbedBuilder()
-      .setTitle('🔴 機器人下線通知')
-      .setDescription(`Bot 即將下線。\n原因：${reason}`)
-      .addFields({ name: '時間', value: new Date().toLocaleString('zh-TW') })
-      .setColor('#FF0000')
-      .setFooter({ text: '系統事件日誌' })
-      .setTimestamp();
+    await sendLog(
+      client,
+      'system',
+      '機器人下線通知',
+      null,
+      `Bot 即將下線。\n原因：${reason}\n時間：${new Date().toLocaleString('zh-TW')}`,
+      '#FF0000' 
+    );
 
-    await sendLog(client, 'system', '🔴 機器人下線', `原因：${reason}`, embed);
+    // 稍微延遲以確保訊息送出
     await new Promise(r => setTimeout(r, 2000));
   }
 

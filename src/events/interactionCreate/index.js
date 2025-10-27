@@ -14,7 +14,7 @@ export const event = {
     await sendLog(
       interaction.client,
       'command',
-      '🧩 指令使用記錄',
+      '指令使用記錄',
       `使用者：${interaction.user.tag}\n指令：/${interaction.commandName}`,
       interaction.guild
     );

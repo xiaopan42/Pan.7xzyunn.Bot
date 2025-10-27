@@ -14,7 +14,7 @@ const COLORS = {
 // 🏷️ Emoji 標籤
 const EMOJIS = {
   admin: '🚨',
-  system: '🟢',
+  system: '💻',
   command: '💬',
   error: '❌',
   default: '📝',
@@ -37,13 +37,19 @@ export async function sendLog(client, type, title, interaction, details, color) 
       return;
     }
 
+    // 🧩 若機器人還沒準備好
+    if (!client || !client.channels) {
+      console.warn('⚠️ [Logger] Client 尚未就緒，略過發送日誌。');
+      return;
+    }
+
     const channel = await client.channels.fetch(channelId).catch(() => null);
     if (!channel) {
       console.warn(`⚠️ [Logger] 無法找到日誌頻道 (${channelId})`);
       return;
     }
 
-    // 🔍 使用者 / 伺服器 fallback
+    // 🧾 取得使用者與伺服器資訊
     const user =
       interaction?.user ||
       interaction?.author ||
@@ -57,22 +63,27 @@ export async function sendLog(client, type, title, interaction, details, color) 
         ? { name: '多伺服器運行中', id: '多個伺服器' }
         : { name: '未知伺服器', id: 'N/A' });
 
-    // 🧱 準備 Embed
+    // 🧱 若傳入 EmbedBuilder，直接使用
     let embed;
     if (details instanceof EmbedBuilder) {
-      embed = details; // 允許直接傳入 embed
+      embed = details;
     } else {
+      const description =
+        typeof details === 'string' && details.trim().length > 0 ? details : null;
+
       embed = new EmbedBuilder()
         .setTitle(`${EMOJIS[type] || EMOJIS.default} ${title}`)
         .setColor(color || COLORS[type] || COLORS.default)
-        .setDescription(typeof details === 'string' ? details : '')
-        .addFields(
-          { name: '📋 類型', value: type, inline: true },
-          { name: '👤 使用者', value: `${user.tag}\n(${user.id})`, inline: true },
-          { name: '🏠 伺服器', value: `${guild.name}\n(${guild.id})`, inline: false },
-        )
         .setTimestamp()
         .setFooter({ text: 'Pan.7xzyunn.Bot 日誌系統' });
+
+      if (description) embed.setDescription(description);
+
+      embed.addFields(
+        { name: '📋 類型', value: type, inline: true },
+        { name: '👤 使用者', value: `${user.tag}\n(${user.id})`, inline: true },
+        { name: '🏠 伺服器', value: `${guild.name}\n(${guild.id})`, inline: false },
+      );
     }
 
     await channel.send({ embeds: [embed] });
