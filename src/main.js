@@ -5,6 +5,7 @@ import { pathToFileURL } from 'url';
 import fg from 'fast-glob';
 import { sendLog } from './store/logger.js';
 import chalk from 'chalk';
+
 process.removeAllListeners('warning');
 
 export const client = new Client({ intents: [GatewayIntentBits.Guilds] });
@@ -15,67 +16,70 @@ async function loadEvents() {
   for (const file of files) {
     const mod = await import(pathToFileURL(file).href);
     if (mod.event) {
-      if (mod.event.once)
-        client.once(mod.event.name, (...args) => mod.event.execute(...args));
-      else
-        client.on(mod.event.name, (...args) => mod.event.execute(...args));
-
+      const fn = (...args) => mod.event.execute(...args);
+      mod.event.once ? client.once(mod.event.name, fn) : client.on(mod.event.name, fn);
       console.log(`🟢 已載入事件: ${mod.event.name}`);
     }
   }
 }
 
-// 🟢 啟動機器人
+// 🚀 啟動機器人
 async function startBot() {
-  await loadCommands();
-  await loadEvents();
-  await client.login(process.env.TOKEN);
+  try {
+    await loadCommands();
+    await loadEvents();
+    await client.login(process.env.TOKEN);
+    console.log(chalk.green(`✅ Bot 已成功登入：${client.user.tag}`));
+  } catch (err) {
+    console.error(chalk.red('❌ 登入失敗：'), err);
+  }
 }
 
 startBot();
 
-// 🧩 驗證主日誌頻道（可手動呼叫）
-export async function verifyMainLog(client) {
-  const channelId = process.env.MAIN_LOG_CHANNEL_ID;
-  if (!channelId) {
-    console.log(chalk.red('❌ [LOG] 缺少 MAIN_LOG_CHANNEL_ID，請在 .env 裡設定！'));
-    return;
-  }
-
-  try {
-    const channel = await client.channels.fetch(channelId);
-    if (!channel) {
-      console.log(chalk.red(`❌ [LOG] 找不到頻道 ID：${channelId}`));
-      return;
-    }
-
-    await channel.send('✅ Bot 已啟動並成功連線到主日誌頻道。');
-    console.log(chalk.green(`✅ [LOG] 主日誌頻道檢查成功 (${channel.name})`));
-  } catch (err) {
-    console.log(chalk.red(`❌ [LOG] 無法發送訊息到日誌頻道：${err.message}`));
-  }
-}
-
-// 🔻 下線通知（統一使用新版 sendLog）
+// 🔻 下線通知
 async function handleShutdown(reason) {
-  console.log(`🔻 收到關閉訊號 (${reason})`);
+  console.log(chalk.yellow(`🔻 收到關閉訊號 (${reason})`));
 
   if (client && client.isReady()) {
-    await sendLog(
-      client,
-      'system',
-      '機器人下線通知',
-      null,
-      `Bot 即將下線。\n原因：${reason}\n時間：${new Date().toLocaleString('zh-TW')}`,
-      '#FF0000' 
-    );
-
-    // 稍微延遲以確保訊息送出
-    await new Promise(r => setTimeout(r, 2000));
+    try {
+      await sendLog(
+        client,
+        'system',
+        '機器人下線通知',
+        null,
+        `Bot 即將下線。\n原因：${reason}\n時間：${new Date().toLocaleString('zh-TW')}`,
+        '#FF0000'
+      );
+      console.log(chalk.red('📤 已發送下線通知日誌'));
+      // 等待訊息送完
+      await new Promise(r => setTimeout(r, 2000));
+    } catch (err) {
+      console.error('❌ 發送下線通知失敗:', err);
+    }
+  } else {
+    console.warn('⚠️ Client 尚未就緒，略過下線通知');
   }
 
   process.exit(0);
 }
 
-process.on('SIGINT', () => handleShutdown('手動關閉 (SIGINT)'));
+// 📦 系統訊號監聽
+process.on('SIGINT', () => handleShutdown('手動關閉 (Ctrl+C / SIGINT)'));
 process.on('SIGTERM', () => handleShutdown('系統關閉 (SIGTERM)'));
+
+// ⚠️ 捕捉未預期錯誤也記錄
+process.on('uncaughtException', async (err) => {
+  console.error('💥 未捕捉例外:', err);
+  if (client && client.isReady()) {
+    await sendLog(
+      client,
+      'error',
+      '未捕捉例外錯誤',
+      null,
+      `錯誤：${err.message || err}\n時間：${new Date().toLocaleString('zh-TW')}`,
+      '#FF0000'
+    );
+  }
+  process.exit(1);
+});
