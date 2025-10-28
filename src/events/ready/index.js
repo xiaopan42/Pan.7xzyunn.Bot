@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import { sendLog } from '../../store/logger.js';
+import pkg from '../../../package.json' assert { type: 'json' };
 
 export const event = {
   name: 'ready',
@@ -12,7 +13,7 @@ export const event = {
       status: 'online',
       activities: [
         {
-          name: 'Pan.7xzyunn.Bot 0.1.0 by xiaopan.',
+          name: `Pan.7xzyunn.Bot v${pkg.version} by xiaopan.`,
           type: 0,
         },
       ],
