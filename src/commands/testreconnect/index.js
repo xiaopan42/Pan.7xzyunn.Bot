@@ -22,7 +22,7 @@ export const command = {
       await sendLog(
         client,
         'reconnect',
-        '♻️ 模擬重新連線中',
+        '模擬重新連線中',
         interaction,
         `執行者：${interaction.user.tag}\n時間：${new Date().toLocaleString('zh-TW')}`,
         '#FFD700'
@@ -39,7 +39,7 @@ export const command = {
       await sendLog(
         client,
         'system',
-        '🟢 模擬重新連線成功',
+        '模擬重新連線成功',
         interaction,
         `機器人已重新登入 Discord。\n時間：${new Date().toLocaleString('zh-TW')}`,
         '#00FF00'

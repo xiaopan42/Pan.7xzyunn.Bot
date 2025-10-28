@@ -16,7 +16,7 @@ export const command = {
         .setTitle('🤖 邀請 Pan.7xzyunn.Bot')
         .setDescription(`[點我邀請機器人到你的伺服器！](${inviteUrl})`)
         .setColor('#ABB2FF') // ✅ 正確色碼
-        .setFooter({ text: 'Pan.7xzyunn.Bot 0.1.0 by xiaopan.' })
+        .setFooter({ text: 'Pan.7xzyunn.Bot.' })
         .setTimestamp();
 
       await interaction.reply({ embeds: [embed], ephemeral: true });
