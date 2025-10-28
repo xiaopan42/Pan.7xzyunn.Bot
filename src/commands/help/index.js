@@ -2,7 +2,6 @@ import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import fg from 'fast-glob';
 import path from 'path';
 import { pathToFileURL } from 'url';
-import { sendLog } from '../../store/logger.js';
 
 export const command = {
   category: '一般指令',
@@ -30,6 +29,7 @@ export const command = {
       });
     }
 
+    // 🧾 產生指令清單 Embed
     const embed = new EmbedBuilder()
       .setTitle('📖 指令清單')
       .setColor('#00BFFF')
@@ -38,7 +38,7 @@ export const command = {
         Object.entries(categories).map(([cat, cmds]) => ({
           name: `📂 ${cat}`,
           value:
-            cmds.map(c => `> 💠 **${c.name}** — ${c.description}`).join('\n') +
+            cmds.map(c => `>  **${c.name}** — ${c.description}`).join('\n') +
             '\n━━━━━━━━━━━━━━━━━━',
           inline: false,
         }))
@@ -47,14 +47,5 @@ export const command = {
       .setTimestamp();
 
     await interaction.editReply({ embeds: [embed] });
-
-    // ✅ 日誌
-    await sendLog(
-      interaction.client,
-      'command',
-      '使用指令',
-      interaction,
-      `使用者執行了 **/${interaction.commandName}**`
-    );
   },
 };

@@ -22,14 +22,6 @@ export const command = {
       await member.kick(reason);
       await interaction.reply(`✅ 已踢出使用者 **${user.tag}**。理由：${reason}`);
 
-      // ✅ 新版日誌
-      await sendLog(
-        interaction.client,
-        'admin',
-        '執行指令',
-        interaction,
-        `使用者執行了 **/${interaction.commandName}**\n目標：${user.tag}\n理由：${reason}`
-      );
     } catch (err) {
       await interaction.reply({ content: '❌ 無法踢出該成員', ephemeral: true });
       await sendLog(

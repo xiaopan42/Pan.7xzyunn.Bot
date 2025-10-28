@@ -15,8 +15,8 @@ export const event = {
       interaction.client,
       'command',
       '指令使用記錄',
-      `使用者：${interaction.user.tag}\n指令：/${interaction.commandName}`,
-      interaction.guild
+      interaction,
+      `使用者：${interaction.user.tag}\n指令：/${interaction.commandName}`
     );
 
     try {
@@ -33,8 +33,8 @@ export const event = {
         interaction.client,
         'system',
         '❌ 指令執行錯誤',
-        `伺服器：${interaction.guild?.name || '未知'}\n指令：/${interaction.commandName}\n錯誤：${err.message}`,
-        interaction.guild
+        interaction,
+        `伺服器：${interaction.guild?.name || '未知'}\n指令：/${interaction.commandName}\n錯誤：${err.message}`
       );
     }
   },

@@ -10,6 +10,7 @@ export const event = {
       client,
       'system',
       '❌ 未捕捉的錯誤',
+      null,
       `錯誤訊息：\`\`\`${error.message || error}\`\`\``
     );
   },

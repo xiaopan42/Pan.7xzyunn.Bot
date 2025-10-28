@@ -12,12 +12,5 @@ export const command = {
     const latency = sent.createdTimestamp - interaction.createdTimestamp;
     await interaction.editReply(`🏓 延遲：${latency}ms`);
 
-    await sendLog(
-      interaction.client,
-      'command',
-      '使用指令',
-      interaction,
-      `使用者執行了 **/${interaction.commandName}**\n延遲：${latency}ms`
-    );
   },
 };

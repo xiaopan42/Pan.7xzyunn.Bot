@@ -2,7 +2,7 @@ import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import { logCommand } from '../../store/logger.js'; // ✅ 新增日誌模組
 
 export const command = {
-  category: '一般指令',
+    category: '一般指令',
   data: new SlashCommandBuilder()
     .setName('invite')
     .setDescription('取得邀請連結，將機器人加入伺服器'),
@@ -21,12 +21,6 @@ export const command = {
 
       await interaction.reply({ embeds: [embed], ephemeral: true });
 
-      // ✅ 記錄日誌
-      await logCommand(
-        interaction,
-        '使用 /invite 指令',
-        `使用者：${interaction.user.tag} (${interaction.user.id}) 取得邀請連結`
-      );
     } catch (err) {
       console.error('執行 invite 指令發生錯誤:', err);
       if (!interaction.replied && !interaction.deferred) {

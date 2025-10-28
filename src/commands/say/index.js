@@ -15,12 +15,5 @@ export const command = {
     await interaction.reply({ content: '✅ 已發送訊息！', ephemeral: true });
     await interaction.channel.send(msg);
 
-    await sendLog(
-      interaction.client,
-      'command',
-      '使用指令',
-      interaction,
-      `使用者執行了 **/${interaction.commandName}**\n訊息內容：${msg}`
-    );
   },
 };

@@ -20,13 +20,6 @@ export const command = {
       await member.timeout(null);
       await interaction.reply(`✅ 已解除 **${user.tag}** 的禁言`);
 
-      await sendLog(
-        interaction.client,
-        'admin',
-        '執行指令',
-        interaction,
-        `使用者執行了 **/${interaction.commandName}**\n目標：${user.tag}`
-      );
     } catch (err) {
       await interaction.reply({ content: '❌ 無法解除禁言該成員', ephemeral: true });
       await sendLog(

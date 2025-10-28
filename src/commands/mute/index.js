@@ -27,13 +27,6 @@ export const command = {
       await member.timeout(ms, reason);
       await interaction.reply(`✅ 已禁言 **${user.tag}** ${minutes} 分鐘。理由：${reason}`);
 
-      await sendLog(
-        interaction.client,
-        'admin',
-        '執行指令',
-        interaction,
-        `使用者執行了 **/${interaction.commandName}**\n目標：${user.tag}\n時間：${minutes} 分鐘\n理由：${reason}`
-      );
     } catch (err) {
       await interaction.reply({ content: '❌ 無法禁言該成員', ephemeral: true });
       await sendLog(

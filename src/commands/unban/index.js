@@ -21,13 +21,6 @@ export const command = {
       await interaction.guild.members.unban(userId, reason);
       await interaction.reply(`✅ 已解除封鎖使用者 ID：${userId}`);
 
-      await sendLog(
-        interaction.client,
-        'admin',
-        '執行指令',
-        interaction,
-        `使用者執行了 **/${interaction.commandName}**\n目標 ID：${userId}\n理由：${reason}`
-      );
     } catch (err) {
       await interaction.reply({ content: '❌ 無法解除封鎖該使用者', ephemeral: true });
       await sendLog(

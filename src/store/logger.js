@@ -84,7 +84,6 @@ export async function sendLog(client, type, title, interaction, details, color) 
       { name: '🕒 時間', value: time, inline: true },
       { name: '👤 使用者', value: `${user.tag}\n(${user.id})`, inline: false },
       { name: '🏠 伺服器', value: `${guild.name}\n(${guild.id})`, inline: false },
-      { name: '💬 指令', value: command, inline: false },
     );
 
     await channel.send({ embeds: [embed] });
