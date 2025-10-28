@@ -4,34 +4,31 @@ import { sendLog } from '../../store/logger.js';
 export const command = {
   category: '管理指令',
   data: new SlashCommandBuilder()
-    .setName('kick')
-    .setDescription('踢出指定成員')
-    .addUserOption(o => o.setName('target').setDescription('要踢出的成員').setRequired(true))
-    .addStringOption(o => o.setName('reason').setDescription('踢出原因'))
-    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
+    .setName('unmute')
+    .setDescription('解除禁言指定成員')
+    .addUserOption(o => o.setName('target').setDescription('要解除禁言的成員').setRequired(true))
+    .setDefaultMemberPermissions(PermissionFlagsBits.MuteMembers),
 
   async action(interaction) {
-    if (!interaction.memberPermissions.has(PermissionFlagsBits.KickMembers))
+    if (!interaction.memberPermissions.has(PermissionFlagsBits.MuteMembers))
       return interaction.reply({ content: '❌ 你沒有權限使用這個指令', ephemeral: true });
 
     const user = interaction.options.getUser('target');
-    const reason = interaction.options.getString('reason') || '未提供原因';
 
     try {
       const member = await interaction.guild.members.fetch(user.id);
-      await member.kick(reason);
-      await interaction.reply(`✅ 已踢出使用者 **${user.tag}**。理由：${reason}`);
+      await member.timeout(null);
+      await interaction.reply(`✅ 已解除 **${user.tag}** 的禁言`);
 
-      // ✅ 新版日誌
       await sendLog(
         interaction.client,
         'admin',
         '執行指令',
         interaction,
-        `使用者執行了 **/${interaction.commandName}**\n目標：${user.tag}\n理由：${reason}`
+        `使用者執行了 **/${interaction.commandName}**\n目標：${user.tag}`
       );
     } catch (err) {
-      await interaction.reply({ content: '❌ 無法踢出該成員', ephemeral: true });
+      await interaction.reply({ content: '❌ 無法解除禁言該成員', ephemeral: true });
       await sendLog(
         interaction.client,
         'error',

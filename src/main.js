@@ -29,7 +29,7 @@ async function startBot() {
     await loadCommands();
     await loadEvents();
     await client.login(process.env.TOKEN);
-    console.log(chalk.green(`✅ Bot 已成功登入：${client.user.tag}`));
+    console.log(chalk.green(`✅ | ${client.user.tag} 已上線 (${client.guilds.cache.size} 個伺服器)`));
   } catch (err) {
     console.error(chalk.red('❌ 登入失敗：'), err);
   }

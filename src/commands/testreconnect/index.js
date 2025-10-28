@@ -2,6 +2,7 @@ import { SlashCommandBuilder } from 'discord.js';
 import { sendLog } from '../../store/logger.js';
 
 export const command = {
+  category: '特殊指令(僅限擁有者)',
   data: new SlashCommandBuilder()
     .setName('testreconnect')
     .setDescription('🔒模擬機器人重新連線（僅限擁有者）'),

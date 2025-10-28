@@ -6,14 +6,13 @@ export const event = {
   name: 'ready',
   once: true,
   async execute(client) {
-    console.log(chalk.green(`✅ 機器人已登入：${client.user.tag}`));
 
     // 狀態列設定
     client.user.setPresence({
       status: 'online',
       activities: [
         {
-          name: `Pan.7xzyunn.Bot v${pkg.version} by xiaopan.`,
+          name: `/help | v${pkg.version} by xiaopan.`,
           type: 0,
         },
       ],

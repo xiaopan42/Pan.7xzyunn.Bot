@@ -1,28 +1,23 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
-import { logCommand } from '../../store/logger.js'; // ✅ 若有 command log
+import { SlashCommandBuilder } from 'discord.js';
+import { sendLog } from '../../store/logger.js';
 
 export const command = {
+  category: '一般指令',
   data: new SlashCommandBuilder()
     .setName('ping')
-    .setDescription('查看機器人延遲狀態'),
+    .setDescription('測試機器人延遲'),
 
   async action(interaction) {
-    const ping = interaction.client.ws.ping;
+    const sent = await interaction.reply({ content: '🏓 Pong!', fetchReply: true });
+    const latency = sent.createdTimestamp - interaction.createdTimestamp;
+    await interaction.editReply(`🏓 延遲：${latency}ms`);
 
-    const embed = new EmbedBuilder()
-      .setTitle('🏓 Pong!')
-      .setDescription(`機器人運行正常 ✅\n目前延遲：\`${ping}ms\``)
-      .setColor('#57F287') // ✅ Discord 綠
-      .setFooter({ text: 'Pan.7xzyunn.Bot 0.1.0 by xiaopan.' })
-      .setTimestamp();
-
-    await interaction.reply({ embeds: [embed], ephemeral: true });
-
-    // ✅ 日誌系統記錄（可選）
-    await logCommand(
+    await sendLog(
+      interaction.client,
+      'command',
+      '使用指令',
       interaction,
-      '使用 /ping 指令',
-      `使用者：${interaction.user.tag} (${interaction.user.id})`
+      `使用者執行了 **/${interaction.commandName}**\n延遲：${latency}ms`
     );
   },
 };

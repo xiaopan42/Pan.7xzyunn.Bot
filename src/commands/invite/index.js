@@ -2,6 +2,7 @@ import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import { logCommand } from '../../store/logger.js'; // ✅ 新增日誌模組
 
 export const command = {
+  category: '一般指令',
   data: new SlashCommandBuilder()
     .setName('invite')
     .setDescription('取得邀請連結，將機器人加入伺服器'),
