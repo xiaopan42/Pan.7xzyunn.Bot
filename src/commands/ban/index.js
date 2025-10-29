@@ -2,6 +2,7 @@ import { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } from 'discord.
 import { logAdmin } from '../../store/logger.js';
 
 export const command = {
+  category: '管理指令',
   data: new SlashCommandBuilder()
     .setName('ban')
     .setDescription('封鎖指定成員')
