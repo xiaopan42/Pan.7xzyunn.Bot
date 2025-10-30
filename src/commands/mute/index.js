@@ -25,7 +25,7 @@ export const command = {
       const member = await interaction.guild.members.fetch(user.id);
       const ms = minutes * 60 * 1000;
       await member.timeout(ms, reason);
-      await interaction.reply(`✅ 已禁言 **${user.tag}** ${minutes} 分鐘。理由：${reason}`);
+      await interaction.reply(`已禁言 **${user.tag}** ${minutes} 分鐘 / 原因：${reason}`);
 
     } catch (err) {
       await interaction.reply({ content: '❌ 無法禁言該成員', ephemeral: true });

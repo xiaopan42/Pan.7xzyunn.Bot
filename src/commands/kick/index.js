@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } from 'discord.js';
 import { sendLog } from '../../store/logger.js';
 
 export const command = {
@@ -20,7 +20,11 @@ export const command = {
     try {
       const member = await interaction.guild.members.fetch(user.id);
       await member.kick(reason);
-      await interaction.reply(`✅ 已踢出使用者 **${user.tag}**。理由：${reason}`);
+      const embed = new EmbedBuilder()
+        .setColor('#ff4747')
+        .setTitle('✅ 成員已踢出')
+        .setDescription(`👤 **${user.tag}** 已被踢出\n📝 原因：${reason}`)
+        .setTimestamp();
 
     } catch (err) {
       await interaction.reply({ content: '❌ 無法踢出該成員', ephemeral: true });
