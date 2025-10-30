@@ -26,6 +26,7 @@ export const command = {
         .setDescription(`👤 **${user.tag}** 已被踢出\n📝 原因：${reason}`)
         .setTimestamp();
 
+      await interaction.reply({ embeds: [embed] });
     } catch (err) {
       await interaction.reply({ content: '❌ 無法踢出該成員', ephemeral: true });
       await sendLog(

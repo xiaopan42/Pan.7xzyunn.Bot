@@ -19,7 +19,7 @@ export const command = {
 
     try {
       await interaction.guild.members.unban(userId, reason);
-      await interaction.reply(`已解除封鎖使用者 ID.${userId}`);
+      await interaction.reply(`✅ 已解除封鎖使用者 **ID.${userId}** `);
 
     } catch (err) {
       await interaction.reply({ content: '❌ 無法解除封鎖該使用者', ephemeral: true });

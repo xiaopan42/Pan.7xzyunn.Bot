@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, PermissionFlagsBits } from 'discord.js';
+import { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } from 'discord.js';
 import { sendLog } from '../../store/logger.js';
 
 export const command = {
@@ -25,7 +25,15 @@ export const command = {
       const member = await interaction.guild.members.fetch(user.id);
       const ms = minutes * 60 * 1000;
       await member.timeout(ms, reason);
-      await interaction.reply(`已禁言 **${user.tag}** ${minutes} 分鐘 / 原因：${reason}`);
+      const embed = new EmbedBuilder()
+        .setColor('#ff4747')
+        .setTitle('✅ 成員已禁言')
+        .setDescription(
+          `👤 **${user.tag}** 已被禁言\n⏳ 時長：${minutes} 分鐘\n📝 原因：${reason}`
+        )
+        .setTimestamp();
+
+      await interaction.reply({ embeds: [embed] });
 
     } catch (err) {
       await interaction.reply({ content: '❌ 無法禁言該成員', ephemeral: true });

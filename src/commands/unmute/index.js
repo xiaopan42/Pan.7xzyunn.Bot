@@ -18,7 +18,7 @@ export const command = {
     try {
       const member = await interaction.guild.members.fetch(user.id);
       await member.timeout(null);
-      await interaction.reply(`✅ 已解除 **${user.tag}** 的禁言`);
+      await interaction.reply(`✅ 已解除禁言 **ID.${user.id}** `);
 
     } catch (err) {
       await interaction.reply({ content: '❌ 無法解除禁言該成員', ephemeral: true });
