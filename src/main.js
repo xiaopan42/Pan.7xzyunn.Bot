@@ -8,7 +8,9 @@ import chalk from 'chalk';
 
 process.removeAllListeners('warning');
 
-export const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+export const client = new Client({
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent],
+});
 
 // 🟢 載入事件
 async function loadEvents() {

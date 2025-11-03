@@ -4,7 +4,8 @@
   "description": "Discord bot by 小潘",
   "type": "module",
   "scripts": {
-    "start": "vite-node src/main.js"
+    "start": "vite-node src/main.js",
+    "demo:zhuyin": "node scripts/demoZhuyinTranslation.mjs"
   },
   "_moduleAliases": {
     "@": "src"
