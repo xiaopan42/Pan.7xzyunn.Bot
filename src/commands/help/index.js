@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { ApplicationCommandType, SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import fg from 'fast-glob';
 import path from 'path';
 import { pathToFileURL } from 'url';
@@ -23,9 +23,15 @@ export const command = {
       const category = mod.command?.category || '一般指令';
       if (!categories[category]) categories[category] = [];
 
+            const type = data.type ?? ApplicationCommandType.ChatInput;
+      const displayName =
+        type === ApplicationCommandType.ChatInput
+          ? `/${data.name}`
+          : `訊息選單：${data.name}`;
+
       categories[category].push({
-        name: `/${data.name}`,
-        description: data.description || '（無描述）',
+        name: displayName,
+        description: mod.command?.description || data.description || '（無描述）',
       });
     }
 

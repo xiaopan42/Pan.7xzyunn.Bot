@@ -5,10 +5,14 @@ export const event = {
   name: 'interactionCreate',
   once: false,
   async execute(interaction) {
-    if (!interaction.isCommand()) return;
+    if (!interaction.isChatInputCommand() && !interaction.isMessageContextMenuCommand()) return;
 
     const cmd = commands.find(c => c.data.name === interaction.commandName);
     if (!cmd) return;
+
+        const invokedLabel = interaction.isChatInputCommand()
+      ? `/${interaction.commandName}`
+      : `訊息選單：${interaction.commandName}`;
 
     // 🧩 紀錄指令日誌
     await sendLog(
@@ -16,7 +20,7 @@ export const event = {
       'command',
       '指令使用記錄',
       interaction,
-      `使用者：${interaction.user.tag}\n指令：/${interaction.commandName}`
+      `使用者：${interaction.user.tag}\n指令：${invokedLabel}`
     );
 
     try {
@@ -34,7 +38,7 @@ export const event = {
         'system',
         '❌ 指令執行錯誤',
         interaction,
-        `伺服器：${interaction.guild?.name || '未知'}\n指令：/${interaction.commandName}\n錯誤：${err.message}`
+        `伺服器：${interaction.guild?.name || '未知'}\n指令：${invokedLabel}\n錯誤：${err.message}`
       );
     }
   },
