@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } from 'discord.js';
 import { findPendingOrderByUser, updateOrderStatus } from '../../store/orders.js';
 
 export const command = {
@@ -6,6 +6,7 @@ export const command = {
   data: new SlashCommandBuilder()
     .setName('訂單取消')
     .setDescription('取消訂單通知')
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addUserOption(option =>
       option.setName('用戶').setDescription('用戶').setRequired(true)
     )

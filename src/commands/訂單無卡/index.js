@@ -1,8 +1,10 @@
 import { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } from 'discord.js';
 import { randomInt } from 'crypto';
 import { createOrder } from '../../store/orders.js';
+import { name } from 'ejs';
 
 const BANK_ACCOUNT_CHOICES = [
+  { name: '822 - 207540622259', value: '822|207540622259' },
   { name: '700 - 24410241344437', value: '700|24410241344437' },
 ];
 
@@ -35,8 +37,8 @@ function generateOrderNo() {
 export const command = {
   category: '商城指令',
   data: new SlashCommandBuilder()
-    .setName('訂單匯款')
-    .setDescription('建立一筆銀行轉帳訂單表格')
+    .setName('訂單無卡')
+    .setDescription('建立一筆無卡轉帳訂單表格')
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption(option =>
       option.setName('商品名稱').setDescription('訂單商品名稱').setRequired(true)
@@ -95,7 +97,7 @@ export const command = {
 
     const embed = new EmbedBuilder()
       .setColor('#8EC8FF')
-      .setTitle('<:check:1439939142145278012> 成功建立訂單（銀行轉帳）')
+      .setTitle('<:check:1439939142145278012> 成功建立訂單（無卡轉帳）')
       .addFields(
         { name: '商品名稱', value: `\`\`\`${productName}\`\`\``, inline: false },
         { name: '訂單編號', value: `\`\`\`${orderNo}\`\`\``, inline: false },
