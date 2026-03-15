@@ -1,0 +1,64 @@
+{
+  "reviews": [
+    {
+      "id": "b6747892-0325-4ea1-a886-bac4b75274f3",
+      "rating": 5,
+      "content": "有實力，有情緒價值",
+      "reviewerId": "1189860471105405001",
+      "reviewerName": "whimsical_dolphin_29167",
+      "targets": [
+        {
+          "userId": "1202920341123375114",
+          "username": "_4xzpan"
+        },
+        {
+          "userId": "987727183252426752",
+          "username": "hmn_1103"
+        }
+      ],
+      "targetUserId": "1202920341123375114",
+      "targetUsername": "_4xzpan",
+      "createdAt": "2026-02-22T05:02:14.056Z"
+    },
+    {
+      "id": "90e3f91b-3e00-4de8-9eda-f1738606fd1b",
+      "rating": 5,
+      "content": "66",
+      "reviewerId": "607223483369259038",
+      "reviewerName": "bosss_10",
+      "targets": [
+        {
+          "userId": "1202920341123375114",
+          "username": "_4xzpan"
+        },
+        {
+          "userId": "268839443593428994",
+          "username": "xiaowu4747"
+        }
+      ],
+      "targetUserId": "1202920341123375114",
+      "targetUsername": "_4xzpan",
+      "createdAt": "2026-03-01T08:58:46.135Z"
+    },
+    {
+      "id": "0b590595-abe8-4652-841b-2d44cf034cd6",
+      "rating": 5,
+      "content": "該有的服務都很到位語氣什麼都很頂\n人沒看到就死光了技能甚至都沒放強度給到夯爆了",
+      "reviewerId": "1101898609080934532",
+      "reviewerName": "x7uan_.08",
+      "targets": [
+        {
+          "userId": "1202920341123375114",
+          "username": "_4xzpan"
+        },
+        {
+          "userId": "987727183252426752",
+          "username": "hmn_1103"
+        }
+      ],
+      "targetUserId": "1202920341123375114",
+      "targetUsername": "_4xzpan",
+      "createdAt": "2026-03-09T11:53:14.906Z"
+    }
+  ]
+}

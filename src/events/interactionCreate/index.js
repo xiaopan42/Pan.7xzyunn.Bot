@@ -5,6 +5,23 @@ export const event = {
   name: 'interactionCreate',
   once: false,
   async execute(interaction) {
+    if (interaction.isButton() || interaction.isModalSubmit() || interaction.isStringSelectMenu()) {
+      for (const cmd of commands) {
+        if (!cmd.componentAction) continue;
+        try {
+          const handled = await cmd.componentAction(interaction);
+          if (handled) return;
+        } catch (err) {
+          console.error(err);
+          if (!interaction.replied && !interaction.deferred) {
+            await interaction.reply({ content: '互動元件執行失敗', flags: 64 });
+          }
+          return;
+        }
+      }
+      return;
+    }
+
     if (!interaction.isChatInputCommand() && !interaction.isMessageContextMenuCommand()) return;
 
     const cmd = commands.find(c => c.data.name === interaction.commandName);
