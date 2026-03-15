@@ -55,6 +55,15 @@ export async function getBalance(userId) {
   return data.accounts[userId]?.balance ?? 0;
 }
 
+export async function getAllBalances() {
+  const data = await loadBankData();
+  return Object.values(data.accounts || {}).map(acc => ({
+    userId: acc.userId,
+    username: acc.username,
+    balance: acc.balance,
+  }));
+}
+
 export async function adjustBalance({
   userId,
   username,
