@@ -10,13 +10,18 @@
     "1202920341123375114": {
       "userId": "1202920341123375114",
       "username": "_4xzpan",
-      "balance": 9999999,
+      "balance": 240,
       "createdAt": "2026-02-11T01:56:14.097Z",
+<<<<<<< HEAD
       "updatedAt": "2026-02-11T01:56:14.097Z"
+=======
+      "updatedAt": "2026-03-14T13:11:50.646Z"
+>>>>>>> acb4ca9f7e9878d15f200280498fd2664d344bec
     },
     "1283368902105239552": {
       "userId": "1283368902105239552",
       "username": "_9yzxh",
+<<<<<<< HEAD
       "balance": 0,
       "createdAt": "2026-02-13T22:04:58.093Z",
       "updatedAt": "2026-03-08T04:36:02.750Z"
@@ -27,6 +32,18 @@
       "balance": 50,
       "createdAt": "2026-04-02T16:47:42.348Z",
       "updatedAt": "2026-04-02T16:47:42.349Z"
+=======
+      "balance": 1000,
+      "createdAt": "2026-02-13T22:04:58.093Z",
+      "updatedAt": "2026-03-14T13:25:28.649Z"
+    },
+    "987727183252426752": {
+      "userId": "987727183252426752",
+      "username": "hmn_1103",
+      "balance": 240,
+      "createdAt": "2026-03-14T13:11:50.647Z",
+      "updatedAt": "2026-03-14T13:11:50.647Z"
+>>>>>>> acb4ca9f7e9878d15f200280498fd2664d344bec
     }
   },
   "transactions": [
@@ -109,6 +126,7 @@
       "createdAt": "2026-03-08T04:36:02.750Z"
     },
     {
+<<<<<<< HEAD
       "id": "b18d85d4-44e0-466e-8b27-b55030213bad",
       "type": "deposit",
       "userId": "1257560151850876972",
@@ -120,6 +138,84 @@
       "note": "無",
       "actorId": "1202920341123375114",
       "createdAt": "2026-04-02T16:47:42.349Z"
+=======
+      "id": "82a03103-8c3f-4edd-92d6-25c1c0888403",
+      "type": "add_member",
+      "userId": "1202920341123375114",
+      "username": "_4xzpan",
+      "amount": 0,
+      "delta": 0,
+      "balanceBefore": 9999999,
+      "balanceAfter": 9999999,
+      "note": "新增成員",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-03-14T13:10:05.951Z"
+    },
+    {
+      "id": "c758f3f7-965c-4893-b0cd-a4b5e2726e77",
+      "type": "commission",
+      "userId": "1202920341123375114",
+      "username": "_4xzpan",
+      "amount": 480,
+      "delta": 480,
+      "balanceBefore": 9999999,
+      "balanceAfter": 10000479,
+      "note": "訂單 600，俱樂部抽成 20%，打手 _4xzpan",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-03-14T13:10:59.040Z"
+    },
+    {
+      "id": "890d9aaa-30e0-4bd6-a7d2-268d65799ad9",
+      "type": "withdraw",
+      "userId": "1202920341123375114",
+      "username": "_4xzpan",
+      "amount": 10000479,
+      "delta": -10000479,
+      "balanceBefore": 10000479,
+      "balanceAfter": 0,
+      "note": "無",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-03-14T13:11:32.281Z"
+    },
+    {
+      "id": "742f4979-9a2c-4455-8da3-106aaefa381d",
+      "type": "commission",
+      "userId": "1202920341123375114",
+      "username": "_4xzpan",
+      "amount": 240,
+      "delta": 240,
+      "balanceBefore": 0,
+      "balanceAfter": 240,
+      "note": "訂單 600，俱樂部抽成 20%，打手 _4xzpan",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-03-14T13:11:50.646Z"
+    },
+    {
+      "id": "f75f5ec0-e248-4e5d-a44b-edb66bc3a205",
+      "type": "commission",
+      "userId": "987727183252426752",
+      "username": "hmn_1103",
+      "amount": 240,
+      "delta": 240,
+      "balanceBefore": 0,
+      "balanceAfter": 240,
+      "note": "訂單 600，俱樂部抽成 20%，打手 hmn_1103",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-03-14T13:11:50.647Z"
+    },
+    {
+      "id": "c3598fad-6e81-4409-892c-04d472c43190",
+      "type": "deposit",
+      "userId": "1283368902105239552",
+      "username": "_9yzxh",
+      "amount": 1000,
+      "delta": 1000,
+      "balanceBefore": 0,
+      "balanceAfter": 1000,
+      "note": "無",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-03-14T13:25:28.649Z"
+>>>>>>> acb4ca9f7e9878d15f200280498fd2664d344bec
     }
   ]
 }
