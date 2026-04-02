@@ -13,6 +13,20 @@
       "balance": 9999999,
       "createdAt": "2026-02-11T01:56:14.097Z",
       "updatedAt": "2026-02-11T01:56:14.097Z"
+    },
+    "1283368902105239552": {
+      "userId": "1283368902105239552",
+      "username": "_9yzxh",
+      "balance": 0,
+      "createdAt": "2026-02-13T22:04:58.093Z",
+      "updatedAt": "2026-03-08T04:36:02.750Z"
+    },
+    "1257560151850876972": {
+      "userId": "1257560151850876972",
+      "username": ".yidianl._77853",
+      "balance": 50,
+      "createdAt": "2026-04-02T16:47:42.348Z",
+      "updatedAt": "2026-04-02T16:47:42.349Z"
     }
   },
   "transactions": [
@@ -54,6 +68,58 @@
       "note": "無",
       "actorId": "1202920341123375114",
       "createdAt": "2026-02-11T01:56:14.097Z"
+    },
+    {
+      "id": "f01a5328-a130-401c-9ac4-0be99266b349",
+      "type": "deposit",
+      "userId": "1283368902105239552",
+      "username": "_9yzxh",
+      "amount": 150,
+      "delta": 150,
+      "balanceBefore": 0,
+      "balanceAfter": 150,
+      "note": "無",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-02-13T22:04:58.093Z"
+    },
+    {
+      "id": "2621d1ab-a470-4d9b-8ed3-0b794bb40c44",
+      "type": "deposit",
+      "userId": "1283368902105239552",
+      "username": "_9yzxh",
+      "amount": 50,
+      "delta": 50,
+      "balanceBefore": 150,
+      "balanceAfter": 200,
+      "note": "無",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-02-13T22:08:01.530Z"
+    },
+    {
+      "id": "393ae446-6a80-4c26-ae18-acbcf3bb8544",
+      "type": "withdraw",
+      "userId": "1283368902105239552",
+      "username": "_9yzxh",
+      "amount": 200,
+      "delta": -200,
+      "balanceBefore": 200,
+      "balanceAfter": 0,
+      "note": "無",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-03-08T04:36:02.750Z"
+    },
+    {
+      "id": "b18d85d4-44e0-466e-8b27-b55030213bad",
+      "type": "deposit",
+      "userId": "1257560151850876972",
+      "username": ".yidianl._77853",
+      "amount": 50,
+      "delta": 50,
+      "balanceBefore": 0,
+      "balanceAfter": 50,
+      "note": "無",
+      "actorId": "1202920341123375114",
+      "createdAt": "2026-04-02T16:47:42.349Z"
     }
   ]
 }

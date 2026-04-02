@@ -55,6 +55,11 @@ export async function getBalance(userId) {
   return data.accounts[userId]?.balance ?? 0;
 }
 
+export async function getAllAccounts() {
+  const data = await loadBankData();
+  return Object.values(data.accounts || {});
+}
+
 export async function adjustBalance({
   userId,
   username,
