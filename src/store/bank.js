@@ -17,6 +17,7 @@ function buildDefaultData() {
 async function loadBankData() {
   try {
     const raw = await fs.readFile(dataFile, 'utf8');
+    if (!raw || !raw.trim()) return buildDefaultData();
     const data = JSON.parse(raw);
     if (!data || typeof data !== 'object') return buildDefaultData();
     if (!data.accounts || typeof data.accounts !== 'object') data.accounts = {};
@@ -24,6 +25,7 @@ async function loadBankData() {
     return data;
   } catch (err) {
     if (err.code === 'ENOENT') return buildDefaultData();
+    if (err instanceof SyntaxError) return buildDefaultData();
     throw err;
   }
 }

@@ -1,4 +1,3 @@
-console.log('TOKEN:', process.env.DISCORD_TOKEN)
 import 'dotenv/config';
 import { Client, GatewayIntentBits } from 'discord.js';
 import { loadCommands } from './core/loader.js';
@@ -31,7 +30,7 @@ async function startBot() {
   try {
     await loadCommands();
     await loadEvents();
-    await client.login(process.env.TOKEN);
+    await client.login(process.env.DISCORD_TOKEN);
     console.log(chalk.green(`✅ | ${client.user.tag} 已上線 (${client.guilds.cache.size} 個伺服器)`));
   } catch (err) {
     console.error(chalk.red('❌ 登入失敗：'), err);

@@ -17,7 +17,7 @@ export async function loadCommands() {
     if (mod.command) commands.push(mod.command);
   }
 
-  const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+  const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
   await rest.put(
     Routes.applicationCommands(process.env.APPLICATION_ID),
     { body: commands.map(c => c.data.toJSON()) }
