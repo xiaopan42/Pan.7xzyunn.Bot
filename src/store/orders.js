@@ -6,7 +6,6 @@ import ExcelJS from 'exceljs';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dataDir = path.resolve(__dirname, '../../data');
 const dataFile = path.join(dataDir, 'orders.json');
-const excelFile = path.join(dataDir, 'orders.xlsx');
 const worksheetName = 'Orders';
 
 const ORDER_COLUMNS = [
@@ -41,35 +40,60 @@ async function loadOrders() {
   }
 }
 
+function getMonthKey(dateValue = new Date()) {
+  const date = typeof dateValue === 'string' ? new Date(dateValue) : dateValue;
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  return `${year}-${month}`;
+}
+
+function getMonthlyExcelFile(monthKey) {
+  return path.join(dataDir, `orders-${monthKey}.xlsx`);
+}
+
+function groupOrdersByMonth(orders) {
+  return orders.reduce((groups, order) => {
+    const monthKey = order.createdAt ? getMonthKey(order.createdAt) : getMonthKey();
+    if (!groups[monthKey]) groups[monthKey] = [];
+    groups[monthKey].push(order);
+    return groups;
+  }, {});
+}
+
 async function writeOrdersExcel(orders) {
   await fs.mkdir(dataDir, { recursive: true });
 
-  const workbook = new ExcelJS.Workbook();
-  const sheet = workbook.addWorksheet(worksheetName);
-  sheet.columns = ORDER_COLUMNS;
+  const grouped = groupOrdersByMonth(orders);
 
-  for (const order of orders) {
-    sheet.addRow({
-      createdAt: order.createdAt ?? '',
-      updatedAt: order.updatedAt ?? '',
-      orderNo: order.orderNo ?? '',
-      status: order.status ?? '',
-      userId: order.userId ?? '',
-      username: order.username ?? '',
-      productName: order.productName ?? '',
-      amount: order.amount ?? '',
-      bankCode: order.bankCode ?? '',
-      bankAccount: order.bankAccount ?? '',
-      createdBy: order.createdBy ?? '',
-      completedBy: order.completedBy ?? '',
-      cancelledBy: order.cancelledBy ?? '',
-      completedAt: order.completedAt ?? '',
-      cancelledAt: order.cancelledAt ?? '',
-      cancelReason: order.cancelReason ?? '',
-    });
+  for (const [monthKey, monthOrders] of Object.entries(grouped)) {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet(worksheetName);
+    sheet.columns = ORDER_COLUMNS;
+
+    for (const order of monthOrders) {
+      sheet.addRow({
+        createdAt: order.createdAt ?? '',
+        updatedAt: order.updatedAt ?? '',
+        orderNo: order.orderNo ?? '',
+        status: order.status ?? '',
+        userId: order.userId ?? '',
+        username: order.username ?? '',
+        productName: order.productName ?? '',
+        amount: order.amount ?? '',
+        bankCode: order.bankCode ?? '',
+        bankAccount: order.bankAccount ?? '',
+        createdBy: order.createdBy ?? '',
+        completedBy: order.completedBy ?? '',
+        cancelledBy: order.cancelledBy ?? '',
+        completedAt: order.completedAt ?? '',
+        cancelledAt: order.cancelledAt ?? '',
+        cancelReason: order.cancelReason ?? '',
+      });
+    }
+
+    const excelFile = getMonthlyExcelFile(monthKey);
+    await workbook.xlsx.writeFile(excelFile);
   }
-
-  await workbook.xlsx.writeFile(excelFile);
 }
 
 async function saveOrders(orders) {
