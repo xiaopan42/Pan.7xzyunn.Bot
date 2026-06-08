@@ -7,9 +7,11 @@
     "amount": 2000,
     "bankCode": "700",
     "bankAccount": "24410241344437",
-    "status": "pending",
+    "status": "completed",
     "createdAt": "2026-05-03T16:09:23.606Z",
-    "createdBy": "1202920341123375114"
+    "createdBy": "1202920341123375114",
+    "completedBy": "1202920341123375114",
+    "updatedAt": "2026-06-08T09:02:19.861Z"
   },
   {
     "orderNo": "EYR153014733",
@@ -19,9 +21,11 @@
     "amount": 220,
     "bankCode": "700",
     "bankAccount": "24410241344437",
-    "status": "pending",
+    "status": "completed",
     "createdAt": "2026-05-16T12:05:13.066Z",
-    "createdBy": "1202920341123375114"
+    "createdBy": "1202920341123375114",
+    "completedBy": "1202920341123375114",
+    "updatedAt": "2026-06-08T09:02:27.355Z"
   },
   {
     "orderNo": "IDN273488794",
@@ -45,9 +49,11 @@
     "amount": 1100,
     "bankCode": "700",
     "bankAccount": "24410241344437",
-    "status": "pending",
+    "status": "completed",
     "createdAt": "2026-05-26T11:44:23.898Z",
-    "createdBy": "1202920341123375114"
+    "createdBy": "1202920341123375114",
+    "completedBy": "1202920341123375114",
+    "updatedAt": "2026-06-08T09:02:35.697Z"
   },
   {
     "orderNo": "MWH480213718",
@@ -57,9 +63,11 @@
     "amount": 1800,
     "bankCode": "822",
     "bankAccount": "207540622259",
-    "status": "pending",
+    "status": "cancelled",
     "createdAt": "2026-05-29T16:27:05.802Z",
-    "createdBy": "1202920341123375114"
+    "createdBy": "1202920341123375114",
+    "cancelledBy": "1202920341123375114",
+    "updatedAt": "2026-06-08T09:02:01.035Z"
   },
   {
     "orderNo": "QBA125733400",
@@ -69,8 +77,10 @@
     "amount": 200,
     "bankCode": "822",
     "bankAccount": "207540622259",
-    "status": "pending",
+    "status": "completed",
     "createdAt": "2026-05-31T10:39:14.474Z",
-    "createdBy": "1202920341123375114"
+    "createdBy": "1202920341123375114",
+    "completedBy": "1202920341123375114",
+    "updatedAt": "2026-06-08T09:02:52.599Z"
   }
 ]
