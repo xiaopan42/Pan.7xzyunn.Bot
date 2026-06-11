@@ -28,10 +28,12 @@ async function loadEvents() {
 // 🚀 啟動機器人
 async function startBot() {
   try {
-    await loadCommands();
     await loadEvents();
     await client.login(process.env.DISCORD_TOKEN);
     console.log(chalk.green(`✅ | ${client.user.tag} 已上線 (${client.guilds.cache.size} 個伺服器)`));
+
+    // 登入後再載入並註冊命令，避免在未授權狀態下向 Discord API 發出請求
+    await loadCommands();
   } catch (err) {
     console.error(chalk.red('❌ 登入失敗：'), err);
   }
